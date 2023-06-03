@@ -1,0 +1,79 @@
+﻿<Window x:Class="Invool.Views.EditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Invool.Views"
+        mc:Ignorable="d"
+        Title="Schoolloventor - Редактирование" 
+        Height="590" 
+        Width="300"
+              WindowStartupLocation="CenterScreen"
+        Icon="/Resources/icon.ico">
+
+    <Grid Background="LightYellow">
+        <StackPanel>
+            <TextBlock Text="Редактирование записи"
+                       HorizontalAlignment="Center"
+                       FontSize="18"/>
+
+            <TextBlock Text="Article"
+                       Margin="50 5 10 0"/>
+
+            <TextBox Text="{Binding Things.Article,UpdateSourceTrigger=PropertyChanged}"
+                Margin="50 10"/>
+
+            <TextBlock Text="Название предмета"
+                       Margin="50 5 10 0"/>
+
+            <TextBox  Text="{Binding Things.Title,UpdateSourceTrigger=PropertyChanged}"
+                Margin="50 10"/>
+            <TextBlock Text="Тип предмета"
+                       Margin="50 5 10 0"/>
+
+            <ComboBox ItemsSource="{Binding ThingCategories,UpdateSourceTrigger=PropertyChanged}"
+                      SelectedItem="{Binding SelectedThingCategories,UpdateSourceTrigger=PropertyChanged}"
+                      DisplayMemberPath="Title"
+                Margin="50 10"/>
+
+            <TextBlock Text="Ответственное лицо"
+                       Margin="50 10 10 0"/>
+
+            <ComboBox ItemsSource="{Binding Responsibles,UpdateSourceTrigger=PropertyChanged}"
+                         SelectedItem="{Binding SelectedResponsibles,UpdateSourceTrigger=PropertyChanged}"
+                      DisplayMemberPath="FullName"
+                Margin="50 10 50 10"
+                      IsEditable="True"
+                      IsReadOnly="True"/>
+
+            <TextBlock Text="Местоположение"
+                       Margin="50 10 10 0"/>
+
+            <ComboBox ItemsSource="{Binding Locations,UpdateSourceTrigger=PropertyChanged}"
+                         SelectedItem="{Binding SelectedLocation,UpdateSourceTrigger=PropertyChanged}"
+                      DisplayMemberPath="Title"
+                Margin="50 10 50 10"
+                      IsEditable="True"
+                      IsReadOnly="True"/>
+
+            <TextBlock Text="Дата учета"
+                       Margin="50 10 10 0"/>
+
+            <DatePicker  x:Name="DateOfPosition"
+                SelectedDate="{Binding RecordSchools.PostingDate,UpdateSourceTrigger=PropertyChanged}"
+                Margin="50 10 50 0"/>
+
+            <TextBlock Text="Дата списания"
+                       Margin="50 10 10 0"/>
+
+            <DatePickerTextBox Text="{Binding RecordSchools.WriteOffDate,UpdateSourceTrigger=PropertyChanged}"
+                Margin="50 10 50 0"/>
+
+            <Button Command="{Binding RecordSchoolobutton,UpdateSourceTrigger=PropertyChanged}"
+                Content="Добавить"
+                    Margin="50 10 50 0"
+                    Background="YellowGreen"/>
+
+        </StackPanel>
+    </Grid>
+</Window>
