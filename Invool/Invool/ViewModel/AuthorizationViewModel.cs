@@ -49,8 +49,7 @@ namespace Invool.ViewModel
             {
                 if (UserIsExits())
                 {
-                    var MainWindow = new MainWindow(_ctx,_userService.
-                        GetUser(Login, Password));
+                    var MainWindow = new MainWindow(_ctx);
                     var CurrentWindow = Application.Current.MainWindow;
                     MainWindow.Show();
                     Application.Current.MainWindow = MainWindow;

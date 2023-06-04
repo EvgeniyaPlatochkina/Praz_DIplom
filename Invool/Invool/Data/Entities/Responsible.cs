@@ -17,9 +17,13 @@ namespace Invool.Data.Entities
         public string FirstName { get; set; } = null!;
         public string LastName { get; set; } = null!;
         public string MiddleName { get; set; }
+        public string Phone { get; set; } = null!;
+        public string JobTitle { get; set; } = null!;
         public ICollection<RecordSchool> RecordSchools { get; set; } = null!;
 
         [NotMapped]
         public string FullName { get => $"{LastName} {FirstName} {MiddleName}"; }
+        [NotMapped]
+        public string FullResponsible { get => $"Фамилия: {LastName},  Имя: {FirstName}, Отчество: {MiddleName},  Номер телефона: {Phone}, Должность:{JobTitle}."; }
     }
 }

@@ -176,7 +176,12 @@
                     Content="Удалить"
                     Background="YellowGreen"
                     BorderBrush="Black"/>
-
+            <Button Grid.Column="3"
+                    Command="{Binding OpenAddDataWindowButton,UpdateSourceTrigger=PropertyChanged}"
+                    Margin="10 10 10 10"
+                    Content="Добавить данные"
+                    Background="YellowGreen"
+                    BorderBrush="Black"/>
 
             <Button Grid.Column="5"
                     Click="ClickButton"

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Invool.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230602153836_start")]
+    [Migration("20230604164736_start")]
     partial class start
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -88,11 +88,19 @@ namespace Invool.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("JobTitle")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MiddleName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

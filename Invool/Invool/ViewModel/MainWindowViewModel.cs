@@ -14,8 +14,9 @@ namespace Invool.ViewModel
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        public MainWindowViewModel(ApplicationDbContext ctx)
+        public MainWindowViewModel(ApplicationDbContext ctx,Window window)
         {
+            Window = window;
             _ctx = ctx;
             _schoolService = new(ctx);
             _thingCategorieService = new(ctx);
@@ -39,7 +40,7 @@ namespace Invool.ViewModel
             UpdateLists();
         }
         //private DateTime _startDate;
-  
+
         //public DateTime StartDate
         //{
         //    get => _startDate; set
@@ -48,6 +49,7 @@ namespace Invool.ViewModel
         //        UpdateLists();
         //    }
         //}
+        private Window Window;
         private ApplicationDbContext _ctx;
         private RecordSchoolService _schoolService;
         private RecordSchool _selectedRecordSchool;
@@ -201,6 +203,16 @@ namespace Invool.ViewModel
             var CurrentWindow = Application.Current.MainWindow;
             CurrentWindow.Close();
         }
+
+        private void OpenAddDataWindow()
+        {
+            var DirectorWindow = new AddDataWindow(_ctx);
+            var CurrentWindow = Application.Current.MainWindow;
+            DirectorWindow.Show();
+            CurrentWindow.Close();
+            Window.Close();
+        }
+
         private void OpenAddRecordSchoolWindow()
         {
             var DirectorWindow = new CreateWindow(_ctx);
@@ -237,10 +249,12 @@ namespace Invool.ViewModel
             else
                 MessageBox.Show("Выберите Запись", "Внимание!", MessageBoxButton.OK, MessageBoxImage.Information);
         }
+
         #region Commands
         public ICommand AddRecordSchoolButton => new Command(authorization => OpenAddRecordSchoolWindow());
         public ICommand EditRecordSchoolButton => new Command(authorization => OpenEditRecordSchoolWindow());
         public ICommand DeleteRecordSchoolButton => new Command(authorization => DeleteRecordSchool());
+        public ICommand OpenAddDataWindowButton => new Command(authorization => OpenAddDataWindow());
 
         #endregion
     }

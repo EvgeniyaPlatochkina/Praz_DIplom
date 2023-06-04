@@ -23,11 +23,11 @@ namespace Invool.Views
     public partial class MainWindow : Window
     {
         private MainWindowViewModel _mainWindowViewModel;
-        public MainWindow(ApplicationDbContext db, User user)
+        public MainWindow(ApplicationDbContext db)
         {
             //new ApplicationDbContext();
             InitializeComponent();
-            DataContext = _mainWindowViewModel = new MainWindowViewModel(db);
+            DataContext = _mainWindowViewModel = new MainWindowViewModel(db,this);
         }
 
         private void ClickButton(object sender, RoutedEventArgs e)

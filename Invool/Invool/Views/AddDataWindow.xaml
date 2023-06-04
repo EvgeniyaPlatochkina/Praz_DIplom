@@ -1,0 +1,273 @@
+﻿<Window x:Class="Invool.Views.AddDataWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Invool.Views"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="AddDataWindow" Height="450" Width="800">
+    <Grid Background="LightYellow">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="150"/>
+            </Grid.ColumnDefinitions>
+            <Button Command="{Binding ExitButton,UpdateSourceTrigger=PropertyChanged}" Content="Назад" Grid.Column="1" Margin="3"         Background="SandyBrown"/>
+        </Grid>
+        <Grid Grid.Row="0">
+
+        <TabControl Background="Transparent">
+
+                <TabItem Header="Кабинеты" >
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width=".4*"/>
+                        </Grid.ColumnDefinitions>
+                        <ListView Grid.Column="0"
+                          ItemsSource="{Binding Locations,UpdateSourceTrigger=PropertyChanged}"
+                          SelectedItem="{Binding SelectedLocationTitle,UpdateSourceTrigger=PropertyChanged}"
+                          BorderThickness="0"
+                          ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                          HorizontalAlignment="Stretch"
+                          Background="Transparent" >
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="ListViewItem">
+                                                <Border Margin="10"
+                                        Background="Gray"
+                                        BorderBrush="Black"
+                                        BorderThickness="0"
+                                        CornerRadius="10"
+                                                    x:Name="Border">
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="12"/>
+                                                            <ColumnDefinition/>
+                                                            <ColumnDefinition Width="100"/>
+                                                            <ColumnDefinition Width="12"/>
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <StackPanel Grid.Column="1"
+                                                    Margin="5">
+                                                            <StackPanel Orientation="Vertical">
+                                                                <TextBlock Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}"
+                                                       FontWeight="Bold"
+                                                       FontSize="16"/>
+                                                            </StackPanel>
+
+                                                        </StackPanel>
+
+                                                    </Grid>
+                                                </Border>
+                                                <ControlTemplate.Triggers>
+                                                    <Trigger Property="IsSelected" Value="True">
+                                                        <Setter TargetName="Border" Property="BorderThickness" Value="2"/>
+                                                    </Trigger>
+                                                </ControlTemplate.Triggers>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                        </ListView>
+                        <StackPanel Grid.Column="1"    
+                            VerticalAlignment="Center"
+                            Margin="10,0,10,0">
+                            <TextBlock Text="Номер Кабинета"/>
+                            <TextBox Width="202"
+                                        Text="{Binding LocationTitle,UpdateSourceTrigger=PropertyChanged}" />
+                            <Button x:Name="AddPracticeButton"  Background="YellowGreen"
+                            Content="Добавить кабинет"
+                            Command="{Binding AddLocationbutton,UpdateSourceTrigger=PropertyChanged}"
+                            Margin="0,10,0,4"/>
+                            <Button   x:Name="UpdatePracticeButton"  Background="YellowGreen"
+                            Content="Обновить"
+                          Command="{Binding UpdateLocationButton,UpdateSourceTrigger=PropertyChanged}"
+                            Margin="0,4"/>
+                            <Button   x:Name="RemovePracticeButton"  Background="YellowGreen"
+                            Content="Удалить"
+                            Command="{Binding DeleteLocationButton,UpdateSourceTrigger=PropertyChanged}"
+                            Margin="0,4"/>
+                        </StackPanel>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Категория пердмета" >
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width=".4*"/>
+                        </Grid.ColumnDefinitions>
+                        <ListView Grid.Column="0"
+                          ItemsSource="{Binding Categorie,UpdateSourceTrigger=PropertyChanged}"
+                          SelectedItem="{Binding SelectedThingCategorieTitle,UpdateSourceTrigger=PropertyChanged}"
+                          BorderThickness="0"
+                          ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                          HorizontalAlignment="Stretch"
+                          Background="Transparent" >
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="ListViewItem">
+                                                <Border Margin="10"
+                                        Background="Gray"
+                                        BorderBrush="Black"
+                                        BorderThickness="0"
+                                        CornerRadius="10"
+                                                    x:Name="Border">
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="12"/>
+                                                            <ColumnDefinition/>
+                                                            <ColumnDefinition Width="100"/>
+                                                            <ColumnDefinition Width="12"/>
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <StackPanel Grid.Column="1"
+                                                    Margin="5">
+                                                            <StackPanel Orientation="Vertical">
+                                                                <TextBlock Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}"
+                                                       FontWeight="Bold"
+                                                       FontSize="16"/>
+                                                            </StackPanel>
+
+                                                        </StackPanel>
+
+                                                    </Grid>
+                                                </Border>
+                                                <ControlTemplate.Triggers>
+                                                    <Trigger Property="IsSelected" Value="True">
+                                                        <Setter TargetName="Border" Property="BorderThickness" Value="2"/>
+                                                    </Trigger>
+                                                </ControlTemplate.Triggers>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                        </ListView>
+                        <StackPanel Grid.Column="1"    
+                            VerticalAlignment="Center"
+                            Margin="10,0,10,0">
+                            <TextBlock Text="Категория предмета"/>
+                            <TextBox Width="202"
+                                        Text="{Binding ThingCategorieTitle,UpdateSourceTrigger=PropertyChanged}" />
+                            <Button  Background="YellowGreen"
+                            Content="Добавить Категорию"
+                            Command="{Binding AddThingCategoriebutton,UpdateSourceTrigger=PropertyChanged}"
+                            Margin="0,10,0,4"/>
+                            <Button    Background="YellowGreen"
+                            Content="Обновить"
+                          Command="{Binding UpdateThingCategorieButton,UpdateSourceTrigger=PropertyChanged}"
+                            Margin="0,4"/>
+                            <Button   Background="YellowGreen"
+                            Content="Удалить"
+                            Command="{Binding DeleteThingCategorieButton,UpdateSourceTrigger=PropertyChanged}"
+                            Margin="0,4"/>
+                        </StackPanel>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Отвественое лицо" >
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width=".4*"/>
+                        </Grid.ColumnDefinitions>
+                        <ListView Grid.Column="0"
+                          ItemsSource="{Binding Responsibles,UpdateSourceTrigger=PropertyChanged}"
+                          SelectedItem="{Binding SelectedResponsible,UpdateSourceTrigger=PropertyChanged}"
+                          BorderThickness="0"
+                          ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                          HorizontalAlignment="Stretch"
+                          Background="Transparent" >
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="ListViewItem">
+                                                <Border Margin="10"
+                                        Background="Gray"
+                                        BorderBrush="Black"
+                                        BorderThickness="0"
+                                        CornerRadius="10"
+                                                    x:Name="Border">
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="12"/>
+                                                            <ColumnDefinition/>
+                                                            <ColumnDefinition Width="100"/>
+                                                            <ColumnDefinition Width="12"/>
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <StackPanel Grid.Column="1"
+                                                    Margin="5">
+                                                            <StackPanel Orientation="Vertical">
+                                                                <TextBlock TextWrapping="Wrap" Text="{Binding FullResponsible, UpdateSourceTrigger=PropertyChanged}"
+                                                       FontWeight="Bold"
+                                                       FontSize="16"/>
+                                                            </StackPanel>
+
+                                                        </StackPanel>
+
+                                                    </Grid>
+                                                </Border>
+                                                <ControlTemplate.Triggers>
+                                                    <Trigger Property="IsSelected" Value="True">
+                                                        <Setter TargetName="Border" Property="BorderThickness" Value="2"/>
+                                                    </Trigger>
+                                                </ControlTemplate.Triggers>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                        </ListView>
+                        <StackPanel Grid.Column="1"    
+                            VerticalAlignment="Center"
+                            Margin="10,0,10,0">
+                            <TextBlock Text="Имя"/>
+                            <TextBox Width="202"
+                                        Text="{Binding FirstName,UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock Text="Фамилия"/>
+                            <TextBox Width="202"
+                                        Text="{Binding LastName,UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock Text="Отчество"/>
+                            <TextBox Width="202"
+                                        Text="{Binding MiddleName,UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock Text="Номер телефона"/>
+                            <TextBox Width="202"
+                                        Text="{Binding Phone,UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock Text="Должность"/>
+                            <TextBox Width="202"
+                                        Text="{Binding JobTitle,UpdateSourceTrigger=PropertyChanged}" />
+                            <Button  Background="YellowGreen"
+                            Content="Добавить Отвественое лицо"
+                            Command="{Binding AddResponsiblebutton,UpdateSourceTrigger=PropertyChanged}"
+                            Margin="0,10,0,4"/>
+                            <Button    Background="YellowGreen"
+                            Content="Обновить"
+                          Command="{Binding UpdateResponsibleButton,UpdateSourceTrigger=PropertyChanged}"
+                            Margin="0,4"/>
+                            <Button   Background="YellowGreen"
+                            Content="Удалить"
+                            Command="{Binding DeleteResponsibleButton,UpdateSourceTrigger=PropertyChanged}"
+                            Margin="0,4"/>
+                        </StackPanel>
+                    </Grid>
+                </TabItem>
+               
+            </TabControl>
+        </Grid>
+    </Grid>
+</Window>
