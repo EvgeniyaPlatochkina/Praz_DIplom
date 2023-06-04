@@ -39,7 +39,6 @@ namespace Invool.ViewModel
             var DirectorWindow = new MainWindow(_ctx);
             var CurrentWindow = Application.Current.MainWindow;
             DirectorWindow.Show();
-            CurrentWindow.Close();
             Window.Close();
         }
         public ICommand ExitButton => new Command(exit => ExitDirectorWindow());
