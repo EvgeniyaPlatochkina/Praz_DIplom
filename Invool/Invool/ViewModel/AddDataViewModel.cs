@@ -42,7 +42,19 @@ namespace Invool.ViewModel
             Window.Close();
         }
         public ICommand ExitButton => new Command(exit => ExitDirectorWindow());
-
+        private void OpenInfomationLocationWindow()
+        {
+            if (SelectedCategorieTitleIsNull())
+                MessageBox.Show("Выберите Кабинет", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
+            else
+            {
+                var DirectorWindow = new LocationInfomationThingWindow(_ctx, SelectedLocationTitle);
+                var CurrentWindow = Application.Current.MainWindow;
+                DirectorWindow.ShowDialog();
+            }
+       
+        }
+        public ICommand infomationButton => new Command(exit => OpenInfomationLocationWindow());
         #region Categorie
         private List<Location> _locations;
         public List<Location> Locations { get => _locations; set => Set(ref _locations, value, nameof(Locations)); }

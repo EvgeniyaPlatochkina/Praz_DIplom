@@ -107,7 +107,7 @@
                             Margin="0,4"/>
                             <Button    Background="YellowGreen"
                             Content="Посмотреть Инвертаризацию"
-                         
+                         Command="{Binding infomationButton,UpdateSourceTrigger=PropertyChanged}"
                             Margin="0,4" Height="26"/>
                         </StackPanel>
                     </Grid>

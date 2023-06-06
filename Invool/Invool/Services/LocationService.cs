@@ -19,6 +19,8 @@ namespace Invool.Services
         public ICollection<Location> GetUsers()
             => _ctx.Locations
             .Include(r => r.Responsibles)
+             .Include(rs => rs.RecordSchools)
+                .ThenInclude(th =>th.Things)
             .ToList();
         public Location? GetUsers(int id)
             => _ctx.Locations.SingleOrDefault(c => c.Id == id);
