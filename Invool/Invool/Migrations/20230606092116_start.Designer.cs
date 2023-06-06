@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Invool.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230604164736_start")]
+    [Migration("20230606092116_start")]
     partial class start
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,11 +32,17 @@ namespace Invool.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int>("ResponsibleId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ResponsibleId")
+                        .IsUnique();
 
                     b.ToTable("Locations");
                 });
@@ -55,9 +61,6 @@ namespace Invool.Migrations
                     b.Property<DateTime>("PostingDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ResponsibleId")
-                        .HasColumnType("int");
-
                     b.Property<int>("ThingId")
                         .HasColumnType("int");
 
@@ -67,8 +70,6 @@ namespace Invool.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("LocationId");
-
-                    b.HasIndex("ResponsibleId");
 
                     b.HasIndex("ThingId")
                         .IsUnique();
@@ -173,17 +174,22 @@ namespace Invool.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("Invool.Data.Entities.Location", b =>
+                {
+                    b.HasOne("Invool.Data.Entities.Responsible", "Responsibles")
+                        .WithOne("Locations")
+                        .HasForeignKey("Invool.Data.Entities.Location", "ResponsibleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Responsibles");
+                });
+
             modelBuilder.Entity("Invool.Data.Entities.RecordSchool", b =>
                 {
                     b.HasOne("Invool.Data.Entities.Location", "Locations")
                         .WithMany("RecordSchools")
                         .HasForeignKey("LocationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Invool.Data.Entities.Responsible", "Responsibles")
-                        .WithMany("RecordSchools")
-                        .HasForeignKey("ResponsibleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -194,8 +200,6 @@ namespace Invool.Migrations
                         .IsRequired();
 
                     b.Navigation("Locations");
-
-                    b.Navigation("Responsibles");
 
                     b.Navigation("Things");
                 });
@@ -218,7 +222,8 @@ namespace Invool.Migrations
 
             modelBuilder.Entity("Invool.Data.Entities.Responsible", b =>
                 {
-                    b.Navigation("RecordSchools");
+                    b.Navigation("Locations")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Invool.Data.Entities.Thing", b =>

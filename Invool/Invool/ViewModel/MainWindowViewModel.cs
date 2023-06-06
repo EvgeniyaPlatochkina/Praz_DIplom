@@ -25,17 +25,17 @@ namespace Invool.ViewModel
             _thingService = new(ctx);
             DateOfPositionFilthers = new List<string> { "Не выбрана" };
             SortResponsible = new List<string> { "Не выбрана" };
-            ThingCategorieSorts = new List<string> { "Не выбрана" };
+            //ThingCategorieSorts = new List<string> { "Не выбрана" };
             LocationsSort = new List<string> { "Не выбрана" };
-            FilterthingTitle = new List<string> { "Не выбрана" };
-            ThingCategorieSorts.AddRange(_thingCategorieService.GetUsers().Select(c => c.Title));
+            //FilterthingTitle = new List<string> { "Не выбрана" };
+            //ThingCategorieSorts.AddRange(_thingCategorieService.GetUsers().Select(c => c.Title));
             SortResponsible.AddRange(_responsibleService.GetUsers().Select(c => c.FullName));
             LocationsSort.AddRange(_locationService.GetUsers().Select(c => c.Title));
-            FilterthingTitle.AddRange(_thingService.GetUsers().Select(c => c.Title));
-            SelectedThingCategorieSort = ThingCategorieSorts[0];
+            //FilterthingTitle.AddRange(_thingService.GetUsers().Select(c => c.Title));
+            //SelectedThingCategorieSort = ThingCategorieSorts[0];
             SelectedResponsible = SortResponsible[0];
             SelectedLocationsSort = LocationsSort[0];
-            SelectedThingTitle = FilterthingTitle[0];
+            //SelectedThingTitle = FilterthingTitle[0];
             //StartDate = DateTime.Now;
             UpdateLists();
         }
@@ -58,21 +58,35 @@ namespace Invool.ViewModel
         private ResponsibleService _responsibleService;
         private LocationService _locationService;
         private ThingService _thingService;
-        private ICollection<RecordSchool> GetRecordSchool() => SearchArticle(SearchSaleOffDate(FiltherTitle(FiltherLocations(FiltherResponsible(FiltherThingCategorie(_schoolService.GetUsers()/*.Where(d => d.PostingDate == StartDate)*/.ToList()))))));
+        private ICollection<RecordSchool> GetRecordSchool() => SearchTitle(SearchThingCategorie(SearchArticle(SearchSaleOffDate(FiltherLocations(FiltherResponsible(_schoolService.GetUsers()/*.Where(d => d.PostingDate == StartDate)*/.ToList()))))));
         #region Filtr
-        private List<RecordSchool> FiltherThingCategorie(List<RecordSchool> recordSchools)
+        //private List<RecordSchool> (List<RecordSchool> recordSchools)
+        //{
+        //    if (!(SelectedThingCategorieSort == ThingCategorieSorts[0]))
+        //        return recordSchools.Where(p => p.Things.ThingCategories.Title == SelectedThingCategorieSort).ToList();
+        //    else
+        //        return recordSchools;
+        //}
+        private List<RecordSchool> SearchThingCategorie(List<RecordSchool> recordSchools)
         {
-            if (!(SelectedThingCategorieSort == ThingCategorieSorts[0]))
-                return recordSchools.Where(p => p.Things.ThingCategories.Title == SelectedThingCategorieSort).ToList();
+            if (!string.IsNullOrEmpty(SelectedThingCategorieSort))
+                return recordSchools.Where(p => p.Things.ThingCategories.Title.ToLower().Contains(SelectedThingCategorieSort.ToLower())).ToList();
+            else
+                return recordSchools;
+        }
+        private List<RecordSchool> SearchTitle(List<RecordSchool> recordSchools)
+        {
+            if (!string.IsNullOrEmpty(SelectedThingTitle))
+                return recordSchools.Where(p => p.Things.Title.ToLower().Contains(SelectedThingTitle.ToLower())).ToList();
             else
                 return recordSchools;
         }
         private List<RecordSchool> FiltherResponsible(List<RecordSchool> recordSchools)
         {
             if (!(SelectedResponsible == SortResponsible[0]))
-                return recordSchools.Where(p => p.Responsibles.FullName == SelectedResponsible).ToList();
+                return recordSchools.Where(p => p.Locations.Responsibles.FullName == SelectedResponsible).ToList();
             else
-                return recordSchools;
+            return recordSchools;
         }
         private List<RecordSchool> FiltherLocations(List<RecordSchool> recordSchools)
         {
@@ -81,13 +95,13 @@ namespace Invool.ViewModel
             else
                 return recordSchools;
         }
-        private List<RecordSchool> FiltherTitle(List<RecordSchool> recordSchools)
-        {
-            if (!(SelectedThingTitle == FilterthingTitle[0]))
-                return recordSchools.Where(p => p.Things.Title == SelectedThingTitle).ToList();
-            else
-                return recordSchools;
-        }
+        //private List<RecordSchool> FiltherTitle(List<RecordSchool> recordSchools)
+        //{
+        //    if (!(SelectedThingTitle == FilterthingTitle[0]))
+        //        return recordSchools.Where(p => p.Things.Title == SelectedThingTitle).ToList();
+        //    else
+        //        return recordSchools;
+        //}
         private List<RecordSchool> SearchSaleOffDate(List<RecordSchool> recordSchools)
         {
             if (!string.IsNullOrEmpty(DateOffDateSearch))

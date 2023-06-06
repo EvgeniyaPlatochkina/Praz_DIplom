@@ -13,11 +13,11 @@ namespace Invool.Data.Entities
         public string? WriteOffDate { get; set; }
         public int LocationId { get; set; }
        
-        public int ResponsibleId { get; set; }
+
         public int ThingId { get; set; } // 1-1
         public Thing Things { get; set; } = null!;
         public Location Locations { get; set; } = null!;
 
-        public Responsible Responsibles { get; set; } = null!;
+       
     }
 }

@@ -62,6 +62,9 @@
                                                                 <TextBlock Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}"
                                                        FontWeight="Bold"
                                                        FontSize="16"/>
+                                                                <TextBlock Text="{Binding Responsibles.FullName, UpdateSourceTrigger=PropertyChanged}"
+                                                       FontWeight="Bold"
+                                                       FontSize="16"/>
                                                             </StackPanel>
 
                                                         </StackPanel>
@@ -82,9 +85,14 @@
                         <StackPanel Grid.Column="1"    
                             VerticalAlignment="Center"
                             Margin="10,0,10,0">
-                            <TextBlock Text="Номер Кабинета"/>
+                            <TextBlock Text="Номер Кабинета" />
                             <TextBox Width="202"
                                         Text="{Binding LocationTitle,UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock Text="Отвественое лицо" />
+                            <ComboBox Width="202"
+                                        ItemsSource="{Binding Responsibles,UpdateSourceTrigger=PropertyChanged}"
+                                      SelectedItem="{Binding SelectedResponsibles,UpdateSourceTrigger=PropertyChanged}"
+                                      DisplayMemberPath="FullName"/>
                             <Button x:Name="AddPracticeButton"  Background="YellowGreen"
                             Content="Добавить кабинет"
                             Command="{Binding AddLocationbutton,UpdateSourceTrigger=PropertyChanged}"
@@ -97,6 +105,10 @@
                             Content="Удалить"
                             Command="{Binding DeleteLocationButton,UpdateSourceTrigger=PropertyChanged}"
                             Margin="0,4"/>
+                            <Button    Background="YellowGreen"
+                            Content="Посмотреть Инвертаризацию"
+                         
+                            Margin="0,4" Height="26"/>
                         </StackPanel>
                     </Grid>
                 </TabItem>

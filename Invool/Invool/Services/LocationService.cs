@@ -1,5 +1,6 @@
 ﻿using Invool.Data;
 using Invool.Data.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,7 @@ namespace Invool.Services
         }
         public ICollection<Location> GetUsers()
             => _ctx.Locations
+            .Include(r => r.Responsibles)
             .ToList();
         public Location? GetUsers(int id)
             => _ctx.Locations.SingleOrDefault(c => c.Id == id);

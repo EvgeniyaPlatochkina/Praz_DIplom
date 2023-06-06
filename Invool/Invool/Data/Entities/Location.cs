@@ -14,6 +14,9 @@ namespace Invool.Data.Entities
         }
         public int Id { get; set; }
         public string Title { get; set; } = null!;
+        public int ResponsibleId { get; set; } // 1-1
+        public Responsible Responsibles { get; set; } = null!;
+
         public ICollection<RecordSchool> RecordSchools { get; set; } = null!;
     }
 }

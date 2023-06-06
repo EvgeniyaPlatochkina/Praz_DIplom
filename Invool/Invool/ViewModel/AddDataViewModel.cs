@@ -50,6 +50,8 @@ namespace Invool.ViewModel
         private LocationService _locationService;
         private string _locationTitle;
         private Location _selectedCLocationTitle;
+        private Responsible _selectedResponsibles;
+        public Responsible SelectedResponsibles { get => _selectedResponsibles; set => Set(ref _selectedResponsibles, value, nameof(SelectedResponsibles)); }
         public string LocationTitle { get => _locationTitle; set => Set(ref _locationTitle, value, nameof(LocationTitle)); }
         public Location SelectedLocationTitle
         {
@@ -60,13 +62,14 @@ namespace Invool.ViewModel
                 if (value != null)
                 {
                     LocationTitle = value.Title;
-
+                    SelectedResponsibles = value.Responsibles;
                 }
             }
         }
         private bool SelectedCategorieTitleIsNull() => SelectedLocationTitle == null;
         private bool LocationTitleAlredyInUse() => _locationService.GetUsers().Any(c => c.Title == LocationTitle);
-        private bool LocationPropertiesIsNull() => string.IsNullOrEmpty(LocationTitle);
+        private bool ResponsibleTitleAlredyInUse() => _locationService.GetUsers().Any(c => c.Responsibles == SelectedResponsibles);
+        private bool LocationPropertiesIsNull() => string.IsNullOrEmpty(LocationTitle) || SelectedResponsibles == null!;
         public ICommand AddLocationbutton => new Command(Addregistration => AddLocation());
         public ICommand UpdateLocationButton => new Command(updateaccount => UpdateLocationData());
         public ICommand DeleteLocationButton => new Command(delete => DeleteLocation());
@@ -77,9 +80,11 @@ namespace Invool.ViewModel
                 MessageBox.Show("Все поля должны быть заполнены!", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
             else if (LocationTitleAlredyInUse())
                 MessageBox.Show("Используйте Введите другой кабинет", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
+            else if (ResponsibleTitleAlredyInUse())
+                MessageBox.Show("Это отвественое лицо уже занято", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
             else
             {
-                _locationService.Insert(new Location { Title = LocationTitle });
+                _locationService.Insert(new Location { Title = LocationTitle ,ResponsibleId = SelectedResponsibles.Id});
                 MessageBox.Show("Категория Кабинет!", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
                 UpdateLists();
             }
@@ -88,10 +93,13 @@ namespace Invool.ViewModel
         {
             if (SelectedCategorieTitleIsNull())
                 MessageBox.Show("Выберите Кабинет", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
+            else if (LocationTitleAlredyInUse())
+                MessageBox.Show("Используйте Введите другой кабинет", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
             else
             {
                 _selectedCLocationTitle.Title = LocationTitle;
-                _locationService.Update(_selectedCLocationTitle);
+                //_selectedCLocationTitle.Responsibles = SelectedResponsible;
+                _locationService.Update(SelectedLocationTitle);
                 MessageBox.Show("Данные Кабинета  успешно обновлены!", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
                 UpdateLists();
             }

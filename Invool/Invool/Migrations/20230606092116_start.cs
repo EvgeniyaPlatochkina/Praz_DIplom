@@ -10,19 +10,6 @@ namespace Invool.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Locations",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Locations", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Responsibles",
                 columns: table => new
                 {
@@ -67,6 +54,26 @@ namespace Invool.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Locations",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ResponsibleId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Locations", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Locations_Responsibles_ResponsibleId",
+                        column: x => x.ResponsibleId,
+                        principalTable: "Responsibles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Things",
                 columns: table => new
                 {
@@ -96,7 +103,6 @@ namespace Invool.Migrations
                     PostingDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     WriteOffDate = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LocationId = table.Column<int>(type: "int", nullable: false),
-                    ResponsibleId = table.Column<int>(type: "int", nullable: false),
                     ThingId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -109,12 +115,6 @@ namespace Invool.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_RecordSchools_Responsibles_ResponsibleId",
-                        column: x => x.ResponsibleId,
-                        principalTable: "Responsibles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_RecordSchools_Things_ThingId",
                         column: x => x.ThingId,
                         principalTable: "Things",
@@ -123,14 +123,15 @@ namespace Invool.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Locations_ResponsibleId",
+                table: "Locations",
+                column: "ResponsibleId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_RecordSchools_LocationId",
                 table: "RecordSchools",
                 column: "LocationId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_RecordSchools_ResponsibleId",
-                table: "RecordSchools",
-                column: "ResponsibleId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RecordSchools_ThingId",
@@ -156,10 +157,10 @@ namespace Invool.Migrations
                 name: "Locations");
 
             migrationBuilder.DropTable(
-                name: "Responsibles");
+                name: "Things");
 
             migrationBuilder.DropTable(
-                name: "Things");
+                name: "Responsibles");
 
             migrationBuilder.DropTable(
                 name: "ThingCategories");

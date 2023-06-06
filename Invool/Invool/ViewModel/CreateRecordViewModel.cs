@@ -56,7 +56,7 @@ namespace Invool.ViewModel
         public Responsible SelectedResponsibles { get => _selectedResponsibles; set => Set(ref _selectedResponsibles, value, nameof(SelectedResponsibles)); }
 
         private bool ArticleIsExist() => _thingService.GetUsers().Any(c => c.Article == Things.Article);
-        private bool PropertiesIsNull() => (string.IsNullOrEmpty(Things.Article) || string.IsNullOrEmpty(Things.Title) || SelectedThingCategories == null! || SelectedLocation == null! || SelectedResponsibles == null!|| RecordSchools.PostingDate == null!);
+        private bool PropertiesIsNull() => (string.IsNullOrEmpty(Things.Article) || string.IsNullOrEmpty(Things.Title) || SelectedThingCategories == null! || SelectedLocation == null! || RecordSchools.PostingDate == null!);
         private void AddEmployee()
         {
             if(PropertiesIsNull())
@@ -69,7 +69,7 @@ namespace Invool.ViewModel
                         Things.Title = Things.Title;
                         Things.ThingCategories = SelectedThingCategories;
                         _thingService.Insert(Things);
-                        RecordSchools.Responsibles = SelectedResponsibles;
+                        //RecordSchools.Responsibles = SelectedResponsibles;
                         RecordSchools.Locations = SelectedLocation;
                         RecordSchools.PostingDate = RecordSchools.PostingDate.Date;
                         RecordSchools.WriteOffDate = " ";

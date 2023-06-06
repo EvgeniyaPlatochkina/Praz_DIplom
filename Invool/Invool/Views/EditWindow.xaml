@@ -36,15 +36,6 @@
                       DisplayMemberPath="Title"
                 Margin="50 10"/>
 
-            <TextBlock Text="Ответственное лицо"
-                       Margin="50 10 10 0"/>
-
-            <ComboBox ItemsSource="{Binding Responsibles,UpdateSourceTrigger=PropertyChanged}"
-                         SelectedItem="{Binding SelectedResponsibles,UpdateSourceTrigger=PropertyChanged}"
-                      DisplayMemberPath="FullName"
-                Margin="50 10 50 10"
-                      IsEditable="True"
-                      IsReadOnly="True"/>
 
             <TextBlock Text="Местоположение"
                        Margin="50 10 10 0"/>
