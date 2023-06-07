@@ -23,7 +23,7 @@ namespace Invool.ViewModel
             _responsibleService = new(ctx);
             _locationService = new(ctx);
             _thingService = new(ctx);
-            DateOfPositionFilthers = new List<string> { "Не выбрана" };
+            //DateOfPositionFilthers = new List<string> { "Не выбрана" };
             SortResponsible = new List<string> { "Не выбрана" };
             //ThingCategorieSorts = new List<string> { "Не выбрана" };
             LocationsSort = new List<string> { "Не выбрана" };
@@ -36,7 +36,8 @@ namespace Invool.ViewModel
             SelectedResponsible = SortResponsible[0];
             SelectedLocationsSort = LocationsSort[0];
             //SelectedThingTitle = FilterthingTitle[0];
-            //StartDate = DateTime.Now;
+            StartDate = DateTime.Now;
+            EndDate = DateTime.Now;
             UpdateLists();
         }
         //private DateTime _startDate;
@@ -76,7 +77,7 @@ namespace Invool.ViewModel
                 UpdateLists();
             }
         }
-        private ICollection<RecordSchool> GetRecordSchool() => SearchTitle(SearchThingCategorie(SearchArticle(SearchSaleOffDate(FiltherLocations(FiltherResponsible(_schoolService.GetUsers().Where(d => d.PostingDate >= StartDate && d.PostingDate <= EndDate).ToList()))))));
+        private ICollection<RecordSchool> GetRecordSchool() => SearchTitle(SearchThingCategorie(SearchArticle/*(SearchSaleOffDate*/(FiltherLocations(FiltherResponsible(_schoolService.GetUsers()/*.Where(d => d.PostingDate >= StartDate && d.PostingDate <= EndDate /*&& d.WriteOffDate >= StartDate && d.WriteOffDate <= EndDate*//*)*/.ToList())))));
         #region Filtr
         //private List<RecordSchool> (List<RecordSchool> recordSchools)
         //{
@@ -120,13 +121,13 @@ namespace Invool.ViewModel
         //    else
         //        return recordSchools;
         //}
-        private List<RecordSchool> SearchSaleOffDate(List<RecordSchool> recordSchools)
-        {
-            if (!string.IsNullOrEmpty(DateOffDateSearch))
-                return recordSchools.Where(p => p.WriteOffDate.ToLower().Contains(DateOffDateSearch.ToLower())).ToList();
-            else
-                return recordSchools;
-        }
+        //private List<RecordSchool> SearchSaleOffDate(List<RecordSchool> recordSchools)
+        //{
+        //    if (!string.IsNullOrEmpty(DateOffDateSearch))
+        //        return recordSchools.Where(p => p.WriteOffDate.ToLower().Contains(DateOffDateSearch.ToLower())).ToList();
+        //    else
+        //        return recordSchools;
+        //}
         private List<RecordSchool> SearchArticle(List<RecordSchool> recordSchools)
         {
             if (!string.IsNullOrEmpty(SearchArticleValue))
@@ -134,7 +135,6 @@ namespace Invool.ViewModel
             else
                 return recordSchools;
         }
-        public List<string> DateOfPositionFilthers { get; set; } = null!;
         public List<string> SortResponsible { get; set; } = null!;
         public List<string> ThingCategorieSorts { get; set; } = null!;
         public List<string> LocationsSort { get; set; } = null!;
@@ -228,7 +228,7 @@ namespace Invool.ViewModel
         private bool SelectedRecordSchoolIsNull() => SelectedRecordSchool == null;
         private void UpdateLists()
         {
-            RecordSchools = new List<RecordSchool>(GetRecordSchool());
+            RecordSchools = new List<RecordSchool>(GetRecordSchool()).ToList();
         }
         public void ExitApplicantWindow()
         {

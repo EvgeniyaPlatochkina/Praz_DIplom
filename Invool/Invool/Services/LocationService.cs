@@ -21,6 +21,7 @@ namespace Invool.Services
             .Include(r => r.Responsibles)
              .Include(rs => rs.RecordSchools)
                 .ThenInclude(th =>th.Things)
+                    .ThenInclude(tc =>tc.ThingCategories)
             .ToList();
         public Location? GetUsers(int id)
             => _ctx.Locations.SingleOrDefault(c => c.Id == id);

@@ -10,7 +10,7 @@ namespace Invool.Data.Entities
     {
         public int Id { get; set; }
         public DateTime PostingDate { get; set; }
-        public string? WriteOffDate { get; set; }
+        public DateTime? WriteOffDate { get; set; } = null!;
         public int LocationId { get; set; }
        
 

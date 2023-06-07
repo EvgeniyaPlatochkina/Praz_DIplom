@@ -21,15 +21,21 @@ namespace Invool.ViewModel
             _thingService = new(ctx);
             _recordSchoolService = new(ctx);
             _locationService = new(ctx);
-
+      
             RecordSchools = recordSchool;
-            Things.Article = RecordSchools.Things.Article;
-            Things.Title = RecordSchools.Things.Title;
-            SelectedThingCategories = RecordSchools.Things.ThingCategories;
-            SelectedLocation = RecordSchools.Locations;
-            //SelectedResponsibles = RecordSchools.Responsibles;
-            RecordSchools.WriteOffDate = RecordSchools.WriteOffDate;
-            RecordSchools.PostingDate = RecordSchools.PostingDate;
+ 
+              
+ 
+
+                Things.Article = RecordSchools.Things.Article;
+                Things.Title = RecordSchools.Things.Title;
+                SelectedThingCategories = RecordSchools.Things.ThingCategories;
+                SelectedLocation = RecordSchools.Locations;
+                //SelectedResponsibles = RecordSchools.Responsibles;
+                RecordSchools.PostingDate = RecordSchools.PostingDate;
+                RecordSchools.WriteOffDate = RecordSchools.WriteOffDate;
+
+
             UpdateLists();
         }
         private void UpdateLists()
@@ -50,6 +56,8 @@ namespace Invool.ViewModel
         private LocationService _locationService;
         private List<Location> _locations;
         private Location _selectedLocation;
+        private DateTime? _offDate;
+        public DateTime? OffDate { get => _offDate; set => Set(ref _offDate, value, nameof(OffDate)); }
         public Location SelectedLocation { get => _selectedLocation; set => Set(ref _selectedLocation, value, nameof(SelectedLocation)); }
         public List<Location> Locations { get => _locations; set => Set(ref _locations, value, nameof(Locations)); }
         private Thing _thing = new Thing();
@@ -68,7 +76,7 @@ namespace Invool.ViewModel
         private bool ArticleIsExist() => _thingService.GetUsers().Any(c => c.Article == Things.Article);
         
 
-       private bool PropertiesIsNull() => (string.IsNullOrEmpty(Things.Article) || string.IsNullOrEmpty(Things.Title) || SelectedThingCategories == null! || SelectedLocation == null! || RecordSchools.PostingDate == null! || RecordSchools.WriteOffDate==null!);
+       private bool PropertiesIsNull() => (string.IsNullOrEmpty(Things.Article) || string.IsNullOrEmpty(Things.Title) || SelectedThingCategories == null! || SelectedLocation == null!);
         private void EditEmployee()
         {
              if (ArticleIsExist())

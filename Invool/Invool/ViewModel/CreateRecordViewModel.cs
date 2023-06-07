@@ -72,7 +72,7 @@ namespace Invool.ViewModel
                         //RecordSchools.Responsibles = SelectedResponsibles;
                         RecordSchools.Locations = SelectedLocation;
                         RecordSchools.PostingDate = RecordSchools.PostingDate.Date;
-                        RecordSchools.WriteOffDate = " ";
+                        RecordSchools.WriteOffDate = null;
                         RecordSchools.Things = Things;
                         _recordSchoolService.Insert(RecordSchools);
                         MessageBox.Show($"Запись была добавлен!", "", MessageBoxButton.OK, MessageBoxImage.None);

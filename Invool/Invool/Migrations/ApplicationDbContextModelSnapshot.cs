@@ -62,8 +62,8 @@ namespace Invool.Migrations
                     b.Property<int>("ThingId")
                         .HasColumnType("int");
 
-                    b.Property<string>("WriteOffDate")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime?>("WriteOffDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 

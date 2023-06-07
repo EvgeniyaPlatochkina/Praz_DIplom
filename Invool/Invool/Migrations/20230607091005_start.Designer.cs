@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Invool.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230606092116_start")]
+    [Migration("20230607091005_start")]
     partial class start
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -64,8 +64,8 @@ namespace Invool.Migrations
                     b.Property<int>("ThingId")
                         .HasColumnType("int");
 
-                    b.Property<string>("WriteOffDate")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime?>("WriteOffDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 

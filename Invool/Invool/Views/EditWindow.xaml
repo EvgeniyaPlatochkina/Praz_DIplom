@@ -57,7 +57,7 @@
             <TextBlock Text="Дата списания"
                        Margin="50 10 10 0"/>
 
-            <DatePickerTextBox Text="{Binding RecordSchools.WriteOffDate,UpdateSourceTrigger=PropertyChanged}"
+            <DatePicker SelectedDate="{Binding RecordSchools.WriteOffDate ,UpdateSourceTrigger=PropertyChanged}"
                 Margin="50 10 50 0"/>
 
             <Button Command="{Binding RecordSchoolobutton,UpdateSourceTrigger=PropertyChanged}"
