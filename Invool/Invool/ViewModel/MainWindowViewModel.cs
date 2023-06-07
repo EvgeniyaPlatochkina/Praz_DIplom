@@ -77,7 +77,8 @@ namespace Invool.ViewModel
                 UpdateLists();
             }
         }
-        private ICollection<RecordSchool> GetRecordSchool() => SearchTitle(SearchThingCategorie(SearchArticle/*(SearchSaleOffDate*/(FiltherLocations(FiltherResponsible(_schoolService.GetUsers()/*.Where(d => d.PostingDate >= StartDate && d.PostingDate <= EndDate /*&& d.WriteOffDate >= StartDate && d.WriteOffDate <= EndDate*//*)*/.ToList())))));
+        private ICollection<RecordSchool> GetRecordSchool() => SearchTitle(SearchThingCategorie(SearchArticle/*(SearchSaleOffDate*/(FiltherLocations(FiltherResponsible(_schoolService.GetUsers()
+            .Where(d => d.PostingDate.Date >= StartDate.Date && d.PostingDate.Date <= EndDate.Date).ToList())))));
         #region Filtr
         //private List<RecordSchool> (List<RecordSchool> recordSchools)
         //{
