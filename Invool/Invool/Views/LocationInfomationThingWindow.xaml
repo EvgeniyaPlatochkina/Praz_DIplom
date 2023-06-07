@@ -6,7 +6,62 @@
         xmlns:local="clr-namespace:Invool.Views"
         mc:Ignorable="d"
         Title="LocationInfomationThingWindow" Height="450" Width="800">
-    <Grid>
-        
+    <Grid Background="LightYellow">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Text="{Binding Name,UpdateSourceTrigger=PropertyChanged}"/>
+        <ListView Grid.Row="1"
+                          ItemsSource="{Binding Locations,UpdateSourceTrigger=PropertyChanged}"
+                          BorderThickness="0"
+                          ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                          HorizontalAlignment="Stretch"
+                          Background="Transparent" >
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListViewItem">
+                                <Border Margin="10"
+                                        Background="Gray"
+                                        BorderBrush="Black"
+                                        BorderThickness="0"
+                                        CornerRadius="10"
+                                                    x:Name="Border">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="12"/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition Width="100"/>
+                                            <ColumnDefinition Width="12"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <StackPanel Grid.Column="1"
+                                                    Margin="5">
+                                            <StackPanel Orientation="Vertical">
+                                                <TextBlock Text="{Binding Things.Article, UpdateSourceTrigger=PropertyChanged}"
+                                                       FontWeight="Bold"
+                                                       FontSize="16"/>
+                                                <TextBlock Text="{Binding Things.Title, UpdateSourceTrigger=PropertyChanged}"
+                                                       FontWeight="Bold"
+                                                       FontSize="16"/>
+                                                <TextBlock Text="{Binding Things.ThingCategories.Title, UpdateSourceTrigger=PropertyChanged}"
+                                                       FontWeight="Bold"
+                                                       FontSize="16"/>
+                                            </StackPanel>
+
+                                        </StackPanel>
+
+                                    </Grid>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListView.ItemContainerStyle>
+        </ListView>
     </Grid>
 </Window>

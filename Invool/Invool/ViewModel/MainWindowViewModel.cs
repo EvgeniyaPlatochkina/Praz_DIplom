@@ -58,7 +58,25 @@ namespace Invool.ViewModel
         private ResponsibleService _responsibleService;
         private LocationService _locationService;
         private ThingService _thingService;
-        private ICollection<RecordSchool> GetRecordSchool() => SearchTitle(SearchThingCategorie(SearchArticle(SearchSaleOffDate(FiltherLocations(FiltherResponsible(_schoolService.GetUsers()/*.Where(d => d.PostingDate == StartDate)*/.ToList()))))));
+        private DateTime _startDate;
+        private DateTime _endDate;
+        public DateTime StartDate
+        {
+            get => _startDate; set
+            {
+                Set(ref _startDate, value, nameof(StartDate));
+                UpdateLists();
+            }
+        }
+        public DateTime EndDate
+        {
+            get => _endDate; set
+            {
+                Set(ref _endDate, value, nameof(EndDate));
+                UpdateLists();
+            }
+        }
+        private ICollection<RecordSchool> GetRecordSchool() => SearchTitle(SearchThingCategorie(SearchArticle(SearchSaleOffDate(FiltherLocations(FiltherResponsible(_schoolService.GetUsers().Where(d => d.PostingDate >= StartDate && d.PostingDate <= EndDate).ToList()))))));
         #region Filtr
         //private List<RecordSchool> (List<RecordSchool> recordSchools)
         //{

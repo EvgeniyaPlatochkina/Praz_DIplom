@@ -1,6 +1,7 @@
 ﻿using Invool.Data;
 using Invool.Data.Entities;
 using Invool.Services;
+using Invool.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,9 +23,10 @@ namespace Invool.Views
     /// </summary>
     public partial class LocationInfomationThingWindow : Window
     {
-        public LocationInfomationThingWindow(ApplicationDbContext ctx,Location locationService)
+        public LocationInfomationThingWindow(ApplicationDbContext ctx,Location location)
         {
             InitializeComponent();
+            DataContext = new InfomationLocationViewModel(ctx, location);
         }
     }
 }
